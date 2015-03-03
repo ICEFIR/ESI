@@ -26,6 +26,7 @@ public class ESIM {
 		
 		
 		//确认配置文件
+		//可能需要改用Bean
 		File file = new File("config.properties");
 		if (!file.exists())
 			try {
