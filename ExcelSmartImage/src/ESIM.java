@@ -12,6 +12,7 @@ public class ESIM {
 
 	public  static void main(String[] arg)
 	{
+		System.out.println("Loading Initiate");
 		//初始化
 		SystemInitialise();
 		//显示主窗体
@@ -26,7 +27,7 @@ public class ESIM {
 		
 		
 		//确认配置文件
-		//可能需要改用Bean.
+		//可能需要改用Bean
 		File file = new File("config.properties");
 		if (!file.exists())
 			try {
