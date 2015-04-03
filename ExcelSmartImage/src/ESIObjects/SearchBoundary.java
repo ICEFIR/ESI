@@ -1,7 +1,13 @@
 package ESIObjects;
 
-public class SearchBoundary {
+import java.io.Serializable;
+
+public class SearchBoundary implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1023312611192548720L;
 	private int InitialRow;
 	private int InitialCol;
 	private int RowIndex;

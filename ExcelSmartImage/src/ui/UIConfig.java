@@ -107,13 +107,21 @@ public class UIConfig {
 		frame.setVisible(true);
 	}
 
-	private void retrivesettings()
+	private void PreSettings()
 	{
 		listImagePath = UIDataOperator.ConvertListToDefaultListModel(ESIData.DataManager.getImagePathList());
 		listExcelPath = UIDataOperator.ConvertListToDefaultListModel(ESIData.DataManager.getExcelPathList());
 		listSearchKey =	UIDataOperator.ConvertListToDefaultListModel(ESIData.DataManager.getExcelSearchKeyList());
 		listImageKey = UIDataOperator.ConvertListToDefaultListModel(ESIData.DataManager.getExcelImageKeyPhraseList());
 		listExclusiveExceptionList = UIDataOperator.ConvertListToDefaultListModel(ESIData.DataManager.getExcelExclusiveExceptionList());
+
+	}
+	private void PostSettings()
+	{
+		txtKeyRowEnd.setText(ESIData.DataManager.getSearchBoundary().getRowIndexString());
+		txtKeyColEnd.setText(ESIData.DataManager.getSearchBoundary().getColIndexString());
+		txtImgHeight.setText(ESIData.DataManager.getImageSize().getHeightString());
+		txtImgWidth.setText(ESIData.DataManager.getImageSize().getWidthString());
 	}
 	/**
 	 * Create the application.
@@ -127,7 +135,7 @@ public class UIConfig {
 	 */
 	private void initialize() {
 		
-		retrivesettings();
+		PreSettings();
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setBounds(100, 100, 605, 550);
@@ -493,7 +501,7 @@ public class UIConfig {
 			springLayout.putConstraint(SpringLayout.EAST, btnCancel, -10, SpringLayout.EAST, frame.getContentPane());
 			frame.getContentPane().add(btnCancel);
 		/*********************************************************************************************************************************************************************/
-
+			PostSettings();
 
 		
 	}

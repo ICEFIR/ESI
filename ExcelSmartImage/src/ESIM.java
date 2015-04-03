@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import ESI.ESIProperties;
 import ESIData.DataManager;
 import ui.UILoader;
 
@@ -28,13 +29,24 @@ public class ESIM {
 		//确认配置文件
 		//可能需要改用Bean
 		File file = new File(ESIData.DataManager.getSettingFile()); 
+		System.out.println(file.getAbsolutePath());
+		File parent = file.getParentFile();
+		if(!parent.exists() && !parent.mkdirs()){
+		    throw new IllegalStateException("Couldn't create dir: " + parent);
+		}
 		if (!file.exists())
+		{
 			try {
 				file.createNewFile();
+				ESIProperties.SaveAll();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else
+		{
+			ESIProperties.ReadAll();
+		}
 	}
 	private static void LoadESIConfig()
 	{

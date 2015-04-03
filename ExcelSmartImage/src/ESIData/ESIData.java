@@ -2,12 +2,16 @@ package ESIData;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import ESIObjects.ImageData;
 import ESIObjects.ImageSize;
 import ESIObjects.SearchBoundary;
 
 public class ESIData {
-	protected static final String settingFile = "/Settings/config.settings";
+	/**
+	 * 
+	 */
+	protected static final String settingFile = "Settings/config.settings";
 	//程序初始化时加载的设置
 	protected static List<String> ImageSupportList = new ArrayList<String>();
 	//下行内容后续扩展
@@ -24,6 +28,6 @@ public class ESIData {
 	
 	
 	//Excel执行前处理的配置
-	protected static List<ImageData> Imagelist = new ArrayList<ImageData>();
+	protected static List<ImageData> ImageFilelist = new ArrayList<ImageData>();
 	protected static List<String> ExcelFileList = new ArrayList<String>();
 }

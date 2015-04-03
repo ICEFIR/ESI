@@ -1,5 +1,6 @@
 package ESIData;
 
+import ESI.ESIProperties;
 import ui.ESIUIManager;
 import util.UIDataOperator;
 
@@ -15,6 +16,9 @@ public class SettingOperator extends ESIData{
 		loadExcelExclusiveExceptionListFromUI();
 		loadSearchBoundaryFromUI();
 		loadImageSizeFromUI();
+		
+		ESIProperties.SaveAll();
+
 		System.out.println("Íê³É");
 	}
 	

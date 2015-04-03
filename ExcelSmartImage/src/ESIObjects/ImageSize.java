@@ -1,6 +1,12 @@
 package ESIObjects;
 
-public class ImageSize {
+import java.io.Serializable;
+
+public class ImageSize implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8926828365053689353L;
 	private int height;
 	private int width;
 	public int getHeight() {

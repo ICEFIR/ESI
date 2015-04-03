@@ -23,7 +23,7 @@ public class DataManager extends ESIData {
 	
 	public static List<ImageData> getImageList()
 	{
-		return Imagelist;
+		return ImageFilelist;
 	}
 	
 	public static List<String> getExcelSearchKeyList()
@@ -62,7 +62,7 @@ public class DataManager extends ESIData {
 	public static String SearchImageList(String Name)
 	{
 		//·µ»ØÂ·¾¶»ònull
-		for (ImageData imagedata : Imagelist)
+		for (ImageData imagedata : ImageFilelist)
 		{
 			if (imagedata.getName().equals(Name))
 			{
@@ -71,4 +71,16 @@ public class DataManager extends ESIData {
 		}
 		return null;
 	}
+	
+	public static void RetriveDataFromFiles(ESISerialize data)
+	{
+		ExcelImagePathList = data.listImagePath;
+		ExcelPathList = data.listExcelPath;
+		ExcelSearchKeyList = data.listSearchKey;
+		ExcelImagePhraseKeyList = data.listExclusiveExceptionList;
+		ExcelExclusiveExceptionList = data.listExclusiveExceptionList;
+		searchboundary = data.SerialisedSearchboundary;
+		imagesize = data.SerialisedImagesize;
+	}
+
 }
