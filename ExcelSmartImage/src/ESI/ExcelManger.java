@@ -18,6 +18,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.util.IOUtils;
 
+import ESIData.DataManager;
+import ESIData.SettingRetriver;
 import ESIObjects.ImageData;
 import ui.ESIUIManager;
 import util.ExcelOperator;
@@ -192,31 +194,7 @@ public class ExcelManger {
 		}
 		System.out.println("图片加载完成");
 	}
-	private static void getAllImageFromPathToList(String path) 
-	//遍历所有文件夹，查找图片并添加到列表
-	{
-		 File file = new File(path);
-		 File[] files = file.listFiles();
-		 for (File fl : files)
-		 {
-			   if (fl.isDirectory())
-			   {
-				   //遍历所有文件，子文件夹等
-				   getAllImageFromPathToList(fl.getAbsolutePath());  
-			   }
-			   else
-			   {
-				   //判断是否图片
-				   for (String str:DataManager.getImageSupportList())
-					   if (fl.getName().toLowerCase().endsWith(str))
-					   {
-						   ImageData imagedata = new ImageData();
-						   imagedata.setName(fl.getName().substring(0, fl.getName().lastIndexOf(".")));
-						   imagedata.setPath(fl.getAbsolutePath());
-						   DataManager.getImageList().add(imagedata);
-					   }
-			   }
-		  }
+	
 	}
 	
 	

@@ -4,7 +4,7 @@ import java.io.IOException;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import ESI.DataManager;
+import ESIData.DataManager;
 import ui.UILoader;
 
 public class ESIM {
@@ -12,6 +12,7 @@ public class ESIM {
 
 	public  static void main(String[] arg)
 	{
+		System.out.println("Initiating");
 		//初始化
 		SystemInitialise();
 		//显示主窗体
@@ -24,9 +25,9 @@ public class ESIM {
 		LoadImageSupportList();
 		
 		
-		
 		//确认配置文件
-		File file = new File("config.properties");
+		//可能需要改用Bean
+		File file = new File(ESIData.DataManager.getSettingFile()); 
 		if (!file.exists())
 			try {
 				file.createNewFile();

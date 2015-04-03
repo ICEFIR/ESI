@@ -1,4 +1,4 @@
-package ESI;
+package ESIData;
 
 import java.util.List;
 
@@ -8,10 +8,13 @@ import ESIObjects.SearchBoundary;
 
 public class DataManager extends ESIData {
 
-	
+	public static String getSettingFile()
+	{
+		return settingFile;
+	}
 	public static List<String> getImagePathList()
 	{
-		return ImagePathList;
+		return ExcelImagePathList;
 	}
 	public static List<String> getImageSupportList()
 	{
@@ -31,17 +34,29 @@ public class DataManager extends ESIData {
 	{
 		return searchboundary;
 	}
-	public static List<String> getExcelImagePositionKeyList()
+	public static List<String> getExcelImageKeyPhraseList()
 	{
-		return ExcelImagePositionKeyList;
+		return ExcelImagePhraseKeyList;
 	}
-	public static List<String> getExcelFileList()
+	
+	public static List<String> getExcelExclusiveExceptionList()
 	{
-		return ExcelFileList;
+		return ExcelExclusiveExceptionList;
 	}
+	public static List<String> getExcelPathList()
+	{
+		return ExcelPathList;
+	}
+
 	public static ImageSize getImageSize()
 	{
 		return imagesize;
+	}
+	
+	//For other uses
+	public static List<String> getExcelFileList()
+	{
+		return ExcelFileList;
 	}
 	
 	public static String SearchImageList(String Name)

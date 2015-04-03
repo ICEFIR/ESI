@@ -1,11 +1,15 @@
 package util;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import ESIData.DataManager;
+import ESIObjects.ImageData;
 
 public class FileOperator {
 	//创建一个可以多选文件或文件夹的对话框，返回一个String
@@ -45,6 +49,74 @@ public class FileOperator {
 	}
 	
 	
+	
+	//读取所有文件
+	
+	//用法：RecurseFileToList(Pathlist, {"jpg","png"},outputlist)
+	
+	public static void  RecurseFileToList(DefaultListModel<String> getlistExcelPath, String[] typestrs,List<String> excelFileList) {
+		
+		RecurseFileToList(UIDataOperator.ConvertDefaultListModeltoList(getlistExcelPath),typestrs,excelFileList);
+	}
+	public static void  RecurseFileToList(DefaultListModel<String> getlistExcelPath, List<String> typelist,List<String> excelFileList) {
+		
+		RecurseFileToList(UIDataOperator.ConvertDefaultListModeltoList(getlistExcelPath),typelist,excelFileList);
+	}
+	public static void RecurseFileToList(String path, String[] typestrs,List<String> outputlist) 
+	{
+		List<String> typelist = new ArrayList<String>();
+		
+		for(String str:typestrs)
+		{
+			typelist.add(str);
+		}
+		RecurseFileToList(path,typelist, outputlist);
+	}
+	
+	public static void RecurseFileToList(List<String> pathlist,String[] typestrs,List<String> outputlist) 
+	{
+		List<String> typelist = new ArrayList<String>();
+		
+		for(String str:typestrs)
+		{
+			typelist.add(str);
+		}
+		RecurseFileToList(pathlist,typelist, outputlist);
+	}
+	
+	public static void RecurseFileToList(List<String> pathlist,List<String> typelist,List<String> outputlist) 
+	{
+		for(String str:pathlist)
+		{
+			RecurseFileToList(str,typelist, outputlist);
+		}
+		
+	}
+	
+	public static void RecurseFileToList(String path,List<String> typelist,List<String> outputlist) 
+	//遍历所有文件夹，查找图片并添加到列表
+	{
+		 File file = new File(path);
+		 File[] files = file.listFiles();
+		 for (File fl : files)
+		 {
+			   if (fl.isDirectory())
+			   {
+				   //遍历所有文件，子文件夹等
+				   RecurseFileToList(fl.getAbsolutePath(),typelist,outputlist);  
+			   }
+			   else
+			   {
+				   //判断是否图片
+				   for (String str:typelist)
+					   if (fl.getName().toLowerCase().endsWith(str))
+					   {
+						   outputlist.add(fl.getAbsolutePath());
+					   }
+			   }
+		}
+
+	}
 	public static File[] SelectFolder()
 	{
 		File currentFile = new File ("");
@@ -70,4 +142,6 @@ public class FileOperator {
 		if (file.isFile()) return true;
 		return false;
 	}
+
+	
 }

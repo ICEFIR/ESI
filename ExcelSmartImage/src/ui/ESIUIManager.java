@@ -16,7 +16,7 @@ public class ESIUIManager {
 	}
 	public static void printInfo(String str)
 	{
-		uiMainWindow.getTxtPrimeStatu().setText(str);
+		uiMainWindow.getPrimeStatu().setText(str);
 	}
 	public static void printInfo(int Num) {
 		// TODO Auto-generated method stub
