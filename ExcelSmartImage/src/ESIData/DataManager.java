@@ -77,7 +77,7 @@ public class DataManager extends ESIData {
 		ExcelImagePathList = data.listImagePath;
 		ExcelPathList = data.listExcelPath;
 		ExcelSearchKeyList = data.listSearchKey;
-		ExcelImagePhraseKeyList = data.listExclusiveExceptionList;
+		ExcelImagePhraseKeyList = data.listImageKey;
 		ExcelExclusiveExceptionList = data.listExclusiveExceptionList;
 		searchboundary = data.SerialisedSearchboundary;
 		imagesize = data.SerialisedImagesize;
