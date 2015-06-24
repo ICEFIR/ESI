@@ -8,14 +8,22 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import ESIData.DataManager;
-import ESIObjects.ImageData;
-
 public class FileOperator {
 	//创建一个可以多选文件或文件夹的对话框，返回一个String
+
+	private static String current_path = "";
+
+	
 	public static File[] SelectExcelFileOrDirectionary()
 	{
-		File currentFile = new File ("");
+		File currentFile;
+		try{
+			currentFile = new File (current_path);
+		}catch (Exception e){
+			current_path = "";
+			currentFile = new File (current_path);
+		}
+		
 		JFileChooser JFChooser =new JFileChooser(currentFile);
 
 		FileNameExtensionFilter filter= new FileNameExtensionFilter("Excel 文件","xls","xlsx");
@@ -26,8 +34,8 @@ public class FileOperator {
 		JFChooser.setAcceptAllFileFilterUsed(true);
 		JFChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		JFChooser.showDialog(null, "选择");
+		current_path = JFChooser.getCurrentDirectory().toString();
 		File[] file = JFChooser.getSelectedFiles();
-		
 		return file;
 	}
 	
@@ -96,36 +104,44 @@ public class FileOperator {
 	public static void RecurseFileToList(String path,List<String> typelist,List<String> outputlist) 
 	//遍历所有文件夹，查找图片并添加到列表
 	{
-		 File file = new File(path);
-		 File[] files = file.listFiles();
-		 for (File fl : files)
-		 {
-			   if (fl.isDirectory())
-			   {
-				   //遍历所有文件，子文件夹等
-				   RecurseFileToList(fl.getAbsolutePath(),typelist,outputlist);  
-			   }
-			   else
-			   {
-				   //判断是否图片
-				   for (String str:typelist)
+		if(!checkExist(path)) return;
+		File file = new File(path);
+		File[] files = file.listFiles();
+		for (File fl : files)
+		{
+			  if (fl.isDirectory())
+			  {
+				  //遍历所有文件，子文件夹等
+				  RecurseFileToList(fl.getAbsolutePath(),typelist,outputlist);  
+			  }
+			  else
+			  {
+				  //判断是否图片
+				  for (String str:typelist)
 					   if (fl.getName().toLowerCase().endsWith(str))
 					   {
 						   outputlist.add(fl.getAbsolutePath());
 					   }
-			   }
+			  }
 		}
 
 	}
 	public static File[] SelectFolder()
 	{
-		File currentFile = new File ("");
+		File currentFile;
+		try{
+			currentFile = new File (current_path);
+		}catch (Exception e){
+			current_path = "";
+			currentFile = new File (current_path);
+		}
 		JFileChooser JFChooser =new JFileChooser(currentFile);
 		JFChooser.setDialogTitle("文件夹");
 		JFChooser.setMultiSelectionEnabled(true);
 		JFChooser.setAcceptAllFileFilterUsed(true);
 		JFChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		JFChooser.showDialog(null, "选择");
+		current_path = JFChooser.getCurrentDirectory().toString();
 		File[] file = JFChooser.getSelectedFiles();
 		return file;
 	}
@@ -142,6 +158,10 @@ public class FileOperator {
 		if (file.isFile()) return true;
 		return false;
 	}
-
+	public static String getFileName(String str)
+	{
+		File f = new File(str);
+		return f.getName();
+	}
 	
 }

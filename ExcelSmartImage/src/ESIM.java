@@ -14,6 +14,7 @@ public class ESIM {
 	public  static void main(String[] arg)
 	{
 		System.out.println("Initiating");
+
 		//初始化
 		SystemInitialise();
 		//显示主窗体
@@ -24,7 +25,7 @@ public class ESIM {
 	private static void SystemInitialise()
 	{
 		LoadImageSupportList();
-		
+		LoadExcelSupportList();
 		
 		//确认配置文件
 		//可能需要改用Bean
@@ -65,6 +66,11 @@ public class ESIM {
 		DataManager.getImageSupportList().add("png");
 		DataManager.getImageSupportList().add("jpeg");
 		DataManager.getImageSupportList().add("bmp");
+	}
+	private static void LoadExcelSupportList()
+	{
+		DataManager.getExcelSupportList().add("xls");
+		DataManager.getExcelSupportList().add("xlsx");
 	}
 	
 }

@@ -20,12 +20,10 @@ public class DataManager extends ESIData {
 	{
 		return ImageSupportList;
 	}
-	
-	public static List<ImageData> getImageList()
+	public static List<String> getExcelSupportList()
 	{
-		return ImageFilelist;
+		return ExcelSupportList;
 	}
-	
 	public static List<String> getExcelSearchKeyList()
 	{
 		return ExcelSearchKeyList;
@@ -53,13 +51,7 @@ public class DataManager extends ESIData {
 		return imagesize;
 	}
 	
-	//For other uses
-	public static List<String> getExcelFileList()
-	{
-		return ExcelFileList;
-	}
-	
-	public static String SearchImageList(String Name)
+	public static String SearchImageList(String Name, List<ImageData> ImageFilelist)
 	{
 		//·µ»ØÂ·¾¶»ònull
 		for (ImageData imagedata : ImageFilelist)
@@ -71,6 +63,7 @@ public class DataManager extends ESIData {
 		}
 		return null;
 	}
+	
 	
 	public static void RetriveDataFromFiles(ESISerialize data)
 	{

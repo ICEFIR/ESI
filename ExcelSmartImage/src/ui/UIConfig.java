@@ -21,8 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import java.awt.Window.Type;
-
 import javax.swing.JTextField;
 
 import java.awt.event.KeyAdapter;
@@ -192,7 +190,8 @@ public class UIConfig {
 			sl_ExcelPathSetting.putConstraint(SpringLayout.EAST, BtnDeleteExcelPath, 0, SpringLayout.EAST, ScrollPaneExcel);
 			BtnDeleteExcelPath.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if (!ExcelPathList.isSelectionEmpty())listExcelPath.removeRange(ExcelPathList.getMinSelectionIndex(), ExcelPathList.getMaxSelectionIndex());
+					util.UIDataOperator.DeleteSelectedValueFromList(ExcelPathList,listExcelPath);
+
 				}
 			});
 			sl_ExcelPathSetting.putConstraint(SpringLayout.WEST, BtnDeleteExcelPath, 1, SpringLayout.EAST, btnAddExcelPath);

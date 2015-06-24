@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 public class UIDataOperator {
 	public static void ConvertDefaultListModeltoList(DefaultListModel<String> defaultlistmodel,List<String> list)
@@ -63,6 +64,12 @@ public class UIDataOperator {
 		
 	}
 	
-	
+	public static void DeleteSelectedValueFromList(JList<String> Jlist,  DefaultListModel<String> list)
+	{
+		while(!Jlist.isSelectionEmpty())
+		{
+			list.remove(Jlist.getSelectedIndex());
+		}
+	}
 	
 }
