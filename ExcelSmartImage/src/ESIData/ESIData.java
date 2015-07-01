@@ -2,6 +2,8 @@ package ESIData;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ESIObjects.CellProperty;
 import ESIObjects.ImageSize;
 import ESIObjects.SearchBoundary;
 
@@ -24,5 +26,6 @@ public class ESIData {
 	protected static List<String> ExcelExclusiveExceptionList = new ArrayList<String>();
 	protected static SearchBoundary searchboundary = new SearchBoundary();
 	protected static ImageSize imagesize = new ImageSize();
-
+	protected static CellProperty cellproperty = new CellProperty();
+	
 }

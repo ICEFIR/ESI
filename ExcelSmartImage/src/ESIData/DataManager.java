@@ -2,6 +2,7 @@ package ESIData;
 
 import java.util.List;
 
+import ESIObjects.CellProperty;
 import ESIObjects.ImageData;
 import ESIObjects.ImageSize;
 import ESIObjects.SearchBoundary;
@@ -45,7 +46,10 @@ public class DataManager extends ESIData {
 	{
 		return ExcelPathList;
 	}
-
+	public static CellProperty getCellProperty()
+	{
+		return cellproperty;
+	}
 	public static ImageSize getImageSize()
 	{
 		return imagesize;
@@ -74,6 +78,7 @@ public class DataManager extends ESIData {
 		ExcelExclusiveExceptionList = data.listExclusiveExceptionList;
 		searchboundary = data.SerialisedSearchboundary;
 		imagesize = data.SerialisedImagesize;
+		cellproperty = data.cellproperty;
 	}
 
 }

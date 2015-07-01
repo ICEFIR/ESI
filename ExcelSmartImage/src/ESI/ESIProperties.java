@@ -43,10 +43,10 @@ public class ESIProperties {
 	{
 		ESIUIManager.getMainWindow().getLblExcelPathNum().setText(Integer.toString(ESIData.DataManager.getExcelPathList().size()));
 		ESIUIManager.getMainWindow().getLblImagePathNum().setText(Integer.toString(ESIData.DataManager.getImagePathList().size()));
-		ESIUIManager.getMainWindow().getLblExcelFileNum().setText("Unknown");
-		ESIUIManager.getMainWindow().getLblImageFileNum().setText("Unknown");
-		ESIUIManager.getMainWindow().getLblOveralProcess().setText("Unknown");
-		ESIUIManager.getMainWindow().getLblCurrentProcess().setText("Unknown");
+		ESIUIManager.getMainWindow().getLblExcelFileNum().setText("δ֪");
+		ESIUIManager.getMainWindow().getLblImageFileNum().setText("δ֪");
+		ESIUIManager.getMainWindow().getLblOveralProcess().setText("δ֪");
+		ESIUIManager.getMainWindow().getLblCurrentProcess().setText("δ֪");
 		ESIUIManager.getMainWindow().getOveralProcessBar().setValue(0);
 		ESIUIManager.getMainWindow().getCurrentProcessBar().setValue(0);
 	}

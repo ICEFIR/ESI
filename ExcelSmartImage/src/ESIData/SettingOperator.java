@@ -16,7 +16,7 @@ public class SettingOperator extends ESIData{
 		loadExcelExclusiveExceptionListFromUI();
 		loadSearchBoundaryFromUI();
 		loadImageSizeFromUI();
-		
+		loadCellPropertyFromUI();
 		ESIProperties.SaveAll();
 
 		System.out.println("Íê³É");
@@ -61,7 +61,11 @@ public class SettingOperator extends ESIData{
 		searchboundary.setColIndex(ESIUIManager.getConfigWindow().getTxtKeyColEnd().getText());
 		searchboundary.setRowIndex(ESIUIManager.getConfigWindow().getTxtKeyRowEnd().getText());
 	}
-
+	private static void loadCellPropertyFromUI()
+	{
+		cellproperty.setCellHeightExcelUnit(Float.parseFloat(ESIUIManager.getConfigWindow().getTxtCellHeightExcelUnit().getText()));
+		cellproperty.setCellWidthExcelUnit(Float.parseFloat(ESIUIManager.getConfigWindow().getTxtCellWidthExcelUnit().getText()));
+	}
 	
 	
 }

@@ -14,7 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import ESI.ExcelManger;
+import ESI.ExcelManager;
 import util.UIDimention;
 
 import java.awt.event.MouseAdapter;
@@ -90,7 +90,9 @@ public class UIMain {
 		springLayout.putConstraint(SpringLayout.EAST, btnStart, -45, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ExcelManger.start();
+				ExcelManager ESIP = new ExcelManager( "ESI Processor" );
+				
+				ESIP.start();
 			}
 		});
 		frmExcelSmartImage.getContentPane().add(btnStart);
@@ -278,5 +280,17 @@ public class UIMain {
 	}
 	public JLabel getLblOveralProcess() {
 		return lblOveralProcess;
+	}
+	public void UpdateCurrentPrograssBar(int val)
+	{
+		CurrentProcessBar.setValue(val);
+		CurrentProcessBar.setString(val+"%");
+		CurrentProcessBar.repaint();
+	}
+	public void UpdateOveralPrograssBar(int val)
+	{
+		OveralProcessBar.setValue(val);
+		OveralProcessBar.setString(val+"%");
+		OveralProcessBar.repaint();
 	}
 }

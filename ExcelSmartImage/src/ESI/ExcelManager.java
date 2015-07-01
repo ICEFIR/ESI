@@ -1,5 +1,6 @@
 package ESI;
 
+import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -28,39 +29,54 @@ import ui.ESIUIManager;
 import util.ExcelOperator;
 import util.FileOperator;
 
-public class ExcelManger {
-	private static List<ImageData> ImageFilelist;
-	private static List<String> ExcelFilelist;
-	private static Workbook ExcelWorkbook = null;
+public class ExcelManager implements Runnable {
+	private Workbook ExcelWorkbook = null;
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss");
+	private Calendar cal;
+	private String suffix="-ESI";
+	private Thread t;
+	private String threadName;
 	
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss");
-	private static Calendar cal;
-	
-	public static void start()
+	public ExcelManager( String name)
 	{
-		RetriveImage();
-		RetriveExcel();
-
+       threadName = name;
+       System.out.println("Creating " +  threadName );
+	}
+	
+	public void run()  {
+		List<String> ExcelFilelist = RetriveExcel();
+		List<ImageData> ImageFilelist = RetriveImage();
 		int i = 0;
 		for(String str : ExcelFilelist)
 		{
 			i++;
 			if (FileOperator.checkIsFile(str) && valid_file(str))
 			{
-				excel_process(str);
+				excel_process(str,ImageFilelist);
 			}
-			ESIUIManager.getMainWindow().getLblOveralProcess().setText(i + "/" + ExcelFilelist.size());
-			ESIUIManager.getMainWindow().getOveralProcessBar().setValue(i/ExcelFilelist.size()*100);
-			
+			updateOverlCounterUI(i,ExcelFilelist.size());
 		}
-
 	}
 	
-	private static boolean valid_file(String str)
+	 public void start ()
+	   {
+	      System.out.println("Starting " +  threadName );
+	      if (t == null)
+	      {
+	         t = new Thread (this, threadName);
+	         t.start ();
+	      }
+	   }
+	
+	private boolean valid_file(String str)
 	{
-		return false;
+		if(str.substring(str.lastIndexOf(".")-4, str.lastIndexOf(".")).equals(suffix))
+		{
+			return false;
+		}
+		return true;
 	}
-	public static void excel_process(String path)
+	private void excel_process(String path, List<ImageData> ImageFilelist)
 	{
 		//加载Excel
 		ExcelWorkbook = ExcelOperator.load(path);
@@ -69,7 +85,7 @@ public class ExcelManger {
 			//如果加载失败则退出
 			return;
 		}
-		ESIUIManager.printInfo("Excel表格已加载");
+		System.out.println("Excel表格已加载");
 		//搜寻工作薄内所有的表格
 		for (int i = 0; i < ExcelWorkbook.getNumberOfSheets(); i++)
 		{
@@ -88,20 +104,22 @@ public class ExcelManger {
 				{
 					System.out.println("已定位目标图片列");
 					//sheet.setColumnWidth(imagecell.getColumnIndex(),(int) (Math.ceil(DataManager.getImageSize().getWidth()*0.026458*4.7237*256)));
-					sheet.setColumnWidth(imagecell.getColumnIndex(), (int) (8.3*256));
+					sheet.setColumnWidth(imagecell.getColumnIndex(), (int) (DataManager.getCellProperty().getCellWidthExcelUnit()*256));
+					//sheet.setColumnWidth(imagecell.getColumnIndex(), (int) (((float)DataManager.getImageSize().getWidth())/7*256));
 					//-----
 					Drawing drawing = sheet.createDrawingPatriarch();
 					//-----
 					for (Row row : sheet)
 					{
-						ESIUIManager.getMainWindow().getLblCurrentProcess().setText(row.getRowNum() + "/" + sheet.getLastRowNum());
-						ESIUIManager.getMainWindow().getCurrentProcessBar().setValue(row.getRowNum()/sheet.getLastRowNum()*100);
+						updateCurrentlCounterUI(row.getRowNum(),sheet.getLastRowNum());
+						
 						if (row.getRowNum()>SerialCell.getRowIndex())
 						{
 							//row.removeCell(row.getCell(imagecell.getColumnIndex()));
 							row.createCell(imagecell.getColumnIndex());
 							//row.setHeight((short) (Math.ceil(DataManager.getImageSize().getHeight()/96*72*20)));
-							row.setHeight((short) (50*20));
+							row.setHeight((short) (20*DataManager.getCellProperty().getCellHeightExcelUnit()));
+							//row.setHeight((short) (((float)DataManager.getImageSize().getHeight())/7*256*20));
 							String pathofimage = new String();
 							try
 							{
@@ -128,9 +146,10 @@ public class ExcelManger {
 									byte[] bytes = IOUtils.toByteArray(is);  
 									int pictureIdx = ExcelWorkbook.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG); 
 									anchor.setCol1(imagecell.getColumnIndex());  
-									anchor.setRow1(row.getRowNum()); 
+									anchor.setRow1(row.getRowNum());
 									Picture pict = drawing.createPicture(anchor, pictureIdx);  
 									pict.resize(1.0,1.0);
+									
 									//----
 									 
 								} catch (IOException e) {
@@ -145,7 +164,7 @@ public class ExcelManger {
 					}
 					
 				}else{
-					ESIUIManager.printInfo("已确认图片名称列但找不到指定图片列");
+					System.out.println("已确认图片名称列但找不到指定图片列");
 					return;
 				}
 			}
@@ -159,7 +178,7 @@ public class ExcelManger {
 			//FileOutputStream fileOut = new FileOutputStream( DataManager.getExcelFileList().get(ExcelNum) );
 			cal = Calendar.getInstance();
 			FileOutputStream fileOut = new FileOutputStream(path.substring(0,path.lastIndexOf(".")-1) + "-"
-					+ sdf.format(cal.getTime()) + path.substring(path.lastIndexOf(".")));
+					+ sdf.format(cal.getTime()) + suffix + path.substring(path.lastIndexOf(".")));
 			
 			ExcelWorkbook.write(fileOut);
 			fileOut.close();
@@ -174,12 +193,11 @@ public class ExcelManger {
 			
 	}
 	
-	private static void RetriveImage()
+	private List<ImageData> RetriveImage()
 	{
-		ESIUIManager.printInfo("加载图片列表");
 		System.out.println("开始加载图片");
 		//初始化图片列表
-		ImageFilelist = new ArrayList<ImageData>();
+		List<ImageData> ImageFilelist = new ArrayList<ImageData>();
 		//获取所有图片库路径
 		for (String str : DataManager.getImagePathList())
 		{
@@ -187,31 +205,78 @@ public class ExcelManger {
 		}
 		ESIUIManager.getMainWindow().getLblImageFileNum().setText(Integer.toString(ImageFilelist.size()));
 		System.out.println("图片加载完成");
+		return ImageFilelist;
 	}
 	
-	private static void retriveImageFromPath(String str, List<ImageData> list)
+	private void retriveImageFromPath(String str, List<ImageData> list)
 	{
 		List<String> ImageList = new ArrayList<String>();
 		util.FileOperator.RecurseFileToList(ESIData.DataManager.getImagePathList(), ESIData.DataManager.getImageSupportList(), ImageList);
 		for(String str1 : ImageList)
 		{
 			ImageData data = new ImageData();
-			data.setName(util.FileOperator.getFileName(str1));
+			data.setName(util.FileOperator.getFileName(str1).substring(0, util.FileOperator.getFileName(str1).lastIndexOf(".")));
 			data.setPath(str1);
 			list.add(data);
 		}
 	}
 	
-	private static void RetriveExcel()
+	private List<String> RetriveExcel()
 	{
-		ESIUIManager.printInfo("加载Excel列表");
-		System.out.println("开始加载列表");
-		ExcelFilelist = new ArrayList<String>();
+		System.out.println("开始加载Excel列表");
+		List<String> ExcelFilelist = new ArrayList<String>();
 		//获取所有图片库路径
 		util.FileOperator.RecurseFileToList(ESIData.DataManager.getExcelPathList(), ESIData.DataManager.getExcelSupportList(),ExcelFilelist);
 		ESIUIManager.getMainWindow().getLblExcelFileNum().setText(Integer.toString(ExcelFilelist.size()));		
 		System.out.println("Excel列表加载完成");
+		return ExcelFilelist;
 	}
 	
+	private void updateOverlCounterUI(int Counter, int NumOfElements)
+	{
+		float percentage =  (float) (((float)Counter) / ((float)NumOfElements) *100.00);
+		try{
+			EventQueue.invokeLater( new Runnable(){
+				public void run() {
+					try {
+						ESIUIManager.getMainWindow().getLblOveralProcess().setText(Counter + "/" + NumOfElements);
+						ESIUIManager.getMainWindow().UpdateOveralPrograssBar((int)percentage);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+			});
+		}catch (Exception e){
+			
+		}
+	}
 	
+
+	private void updateCurrentlCounterUI(int Counter, int NumOfElements)
+	{
+		float percentage =  (float) (((float)Counter) / ((float)NumOfElements) *100.00);
+		try {
+			EventQueue.invokeLater( new Runnable(){
+					public void run() {
+						try {
+							ESIUIManager.getMainWindow().getLblCurrentProcess().setText(Counter + "/" + NumOfElements);
+							ESIUIManager.getMainWindow().UpdateCurrentPrograssBar((int)percentage);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					
+				});
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+			
+		
+	}
+
+	
+
 }
