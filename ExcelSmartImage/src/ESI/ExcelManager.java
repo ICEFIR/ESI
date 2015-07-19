@@ -177,7 +177,7 @@ public class ExcelManager implements Runnable {
 		try {
 			//FileOutputStream fileOut = new FileOutputStream( DataManager.getExcelFileList().get(ExcelNum) );
 			cal = Calendar.getInstance();
-			FileOutputStream fileOut = new FileOutputStream(path.substring(0,path.lastIndexOf(".")-1) + "-"
+			FileOutputStream fileOut = new FileOutputStream(path.substring(0,path.lastIndexOf(".")) + "-"
 					+ sdf.format(cal.getTime()) + suffix + path.substring(path.lastIndexOf(".")));
 			
 			ExcelWorkbook.write(fileOut);

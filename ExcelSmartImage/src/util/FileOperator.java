@@ -116,16 +116,9 @@ public class FileOperator {
 		
 		for (File fl : files)
 		{
-			  if (fl.isDirectory())
-			  {
-				  //遍历所有文件，子文件夹等
-				  RecurseFileToList(fl.getAbsolutePath(),typelist,outputlist);  
-			  }
-			  else
-			  {
-				  //判断是否所需文件类型
-				  AddValidFile(fl,typelist,outputlist);
-			  }
+			  //遍历所有文件，子文件夹等
+			  RecurseFileToList(fl.getAbsolutePath(),typelist,outputlist);  
+
 		}
 	}
 	public static void AddValidFile(File fl,List<String> typelist,List<String> outputlist)
