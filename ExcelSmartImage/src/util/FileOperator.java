@@ -106,7 +106,14 @@ public class FileOperator {
 	{
 		if(!checkExist(path)) return;
 		File file = new File(path);
+		if(file.isFile())
+		{
+			  AddValidFile(file,typelist,outputlist);
+			  return;
+		}
+		
 		File[] files = file.listFiles();
+		
 		for (File fl : files)
 		{
 			  if (fl.isDirectory())
@@ -116,15 +123,20 @@ public class FileOperator {
 			  }
 			  else
 			  {
-				  //判断是否图片
-				  for (String str:typelist)
-					   if (fl.getName().toLowerCase().endsWith(str))
-					   {
-						   outputlist.add(fl.getAbsolutePath());
-					   }
+				  //判断是否所需文件类型
+				  AddValidFile(fl,typelist,outputlist);
 			  }
 		}
-
+	}
+	public static void AddValidFile(File fl,List<String> typelist,List<String> outputlist)
+	{
+		  for (String str:typelist)
+		  {
+			   if (fl.getName().toLowerCase().endsWith(str))
+			   {
+				   outputlist.add(fl.getAbsolutePath());
+			   } 
+		  }
 	}
 	public static File[] SelectFolder()
 	{
