@@ -84,10 +84,10 @@ public class UIMain {
 		SpringLayout springLayout = new SpringLayout();
 		springLayout.putConstraint(SpringLayout.WEST, txtSecondaryStatu, 0, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, txtSecondaryStatu, 0, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, txtSecondaryStatu, -456, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		frmExcelSmartImage.getContentPane().setLayout(springLayout);
 		
 		btnStart = new JButton("\u5F00\u59CB");
-		springLayout.putConstraint(SpringLayout.EAST, btnStart, -45, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ExcelManager ESIP = new ExcelManager( "ESI Processor" );
@@ -98,7 +98,6 @@ public class UIMain {
 		frmExcelSmartImage.getContentPane().add(btnStart);
 		
 		JMenuBar menuBar = new JMenuBar();
-		springLayout.putConstraint(SpringLayout.SOUTH, menuBar, -376, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, menuBar, 0, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, menuBar, 0, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, menuBar, 0, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
@@ -118,14 +117,14 @@ public class UIMain {
 
 		
 		txtPrimeStatu = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, txtPrimeStatu, 387, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, txtPrimeStatu, -30, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnStart, -32, SpringLayout.NORTH, txtPrimeStatu);
+		springLayout.putConstraint(SpringLayout.WEST, txtPrimeStatu, 0, SpringLayout.EAST, txtSecondaryStatu);
+		springLayout.putConstraint(SpringLayout.EAST, txtPrimeStatu, 0, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		txtPrimeStatu.setHorizontalAlignment(SwingConstants.CENTER);
 		springLayout.putConstraint(SpringLayout.NORTH, txtSecondaryStatu, 0, SpringLayout.NORTH, txtPrimeStatu);
-		springLayout.putConstraint(SpringLayout.EAST, txtSecondaryStatu, 0, SpringLayout.WEST, txtPrimeStatu);
-		springLayout.putConstraint(SpringLayout.WEST, txtPrimeStatu, 91, SpringLayout.WEST, menuBar);
 		txtPrimeStatu.setEditable(false);
 		springLayout.putConstraint(SpringLayout.SOUTH, txtPrimeStatu, 0, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, txtPrimeStatu, 0, SpringLayout.EAST, menuBar);
 		frmExcelSmartImage.getContentPane().add(txtPrimeStatu);
 		txtPrimeStatu.setColumns(10);
 		txtSecondaryStatu.setEditable(false);
@@ -133,117 +132,110 @@ public class UIMain {
 		txtSecondaryStatu.setColumns(10);
 		
 		btnChangeSetting = new JButton("\u66F4\u6539\u914D\u7F6E");
+		springLayout.putConstraint(SpringLayout.SOUTH, btnChangeSetting, -106, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnStart, 6, SpringLayout.SOUTH, btnChangeSetting);
 		springLayout.putConstraint(SpringLayout.WEST, btnStart, 0, SpringLayout.WEST, btnChangeSetting);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnStart, -6, SpringLayout.NORTH, btnChangeSetting);
+		springLayout.putConstraint(SpringLayout.EAST, btnStart, 0, SpringLayout.EAST, btnChangeSetting);
+		springLayout.putConstraint(SpringLayout.WEST, btnChangeSetting, 35, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnChangeSetting, -45, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		btnChangeSetting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UILoader.loadConfigWindow(null);
 			}
 		});
-		springLayout.putConstraint(SpringLayout.WEST, btnChangeSetting, 35, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnChangeSetting, -45, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, btnChangeSetting, -40, SpringLayout.NORTH, txtPrimeStatu);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnChangeSetting, -6, SpringLayout.NORTH, txtPrimeStatu);
 		frmExcelSmartImage.getContentPane().add(btnChangeSetting);
 		
 		lblExcel = new JLabel("Excel \u8868\u683C\u6570\u91CF\uFF1A");
-		springLayout.putConstraint(SpringLayout.WEST, lblExcel, 0, SpringLayout.WEST, btnStart);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblExcel, 98, SpringLayout.SOUTH, menuBar);
+		springLayout.putConstraint(SpringLayout.WEST, lblExcel, 35, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
 		lblExcel.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblExcel);
 		
 		label = new JLabel("\u56FE\u7247\u6587\u4EF6\u6570\u91CF\uFF1A");
-		springLayout.putConstraint(SpringLayout.NORTH, label, 112, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, lblExcel, -3, SpringLayout.NORTH, label);
-		springLayout.putConstraint(SpringLayout.EAST, lblExcel, -133, SpringLayout.WEST, label);
-		springLayout.putConstraint(SpringLayout.WEST, label, 291, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, label, 0, SpringLayout.NORTH, lblExcel);
 		label.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(label);
 		
 		lblExcel_1 = new JLabel("Excel \u8DEF\u5F84\u6570\u91CF\uFF1A");
+		springLayout.putConstraint(SpringLayout.NORTH, lblExcel, 11, SpringLayout.SOUTH, lblExcel_1);
+		springLayout.putConstraint(SpringLayout.NORTH, lblExcel_1, 64, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblExcel_1, 35, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, lblExcel_1, -323, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
 		lblExcel_1.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblExcel_1);
 		
 		label_1 = new JLabel("\u56FE\u7247\u8DEF\u5F84\u6570\u91CF\uFF1A");
-		springLayout.putConstraint(SpringLayout.NORTH, label_1, 71, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, label_1, 0, SpringLayout.WEST, label);
+		springLayout.putConstraint(SpringLayout.WEST, label, 0, SpringLayout.WEST, label_1);
+		springLayout.putConstraint(SpringLayout.NORTH, label_1, 0, SpringLayout.NORTH, lblExcel_1);
 		label_1.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(label_1);
 		
 		label_2 = new JLabel("\u5F53\u524D\u8868\u683C\u5DF2\u5904\u7406\uFF1A");
-		springLayout.putConstraint(SpringLayout.WEST, label_2, 0, SpringLayout.WEST, btnStart);
+		springLayout.putConstraint(SpringLayout.NORTH, label_2, 19, SpringLayout.SOUTH, lblExcel);
+		springLayout.putConstraint(SpringLayout.EAST, label_2, 0, SpringLayout.EAST, lblExcel);
 		label_2.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(label_2);
 		
 		label_3 = new JLabel("\u603B\u8FDB\u5EA6\uFF1A");
-		springLayout.putConstraint(SpringLayout.NORTH, label_3, 21, SpringLayout.SOUTH, label);
-		springLayout.putConstraint(SpringLayout.NORTH, label_2, 0, SpringLayout.NORTH, label_3);
+		springLayout.putConstraint(SpringLayout.NORTH, label_3, 0, SpringLayout.NORTH, label_2);
 		springLayout.putConstraint(SpringLayout.WEST, label_3, 0, SpringLayout.WEST, label);
 		label_3.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(label_3);
 		
 		CurrentProcessBar = new JProgressBar();
-		springLayout.putConstraint(SpringLayout.NORTH, CurrentProcessBar, 52, SpringLayout.SOUTH, label_2);
-		springLayout.putConstraint(SpringLayout.WEST, CurrentProcessBar, 0, SpringLayout.WEST, btnStart);
+		springLayout.putConstraint(SpringLayout.NORTH, CurrentProcessBar, -195, SpringLayout.NORTH, txtPrimeStatu);
+		springLayout.putConstraint(SpringLayout.WEST, CurrentProcessBar, 35, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, CurrentProcessBar, -198, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, CurrentProcessBar, 0, SpringLayout.EAST, btnStart);
 		frmExcelSmartImage.getContentPane().add(CurrentProcessBar);
 		
 		OveralProcessBar = new JProgressBar();
-		springLayout.putConstraint(SpringLayout.NORTH, OveralProcessBar, 246, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, OveralProcessBar, -141, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, CurrentProcessBar, -6, SpringLayout.NORTH, OveralProcessBar);
-		springLayout.putConstraint(SpringLayout.NORTH, btnStart, 38, SpringLayout.SOUTH, OveralProcessBar);
-		springLayout.putConstraint(SpringLayout.WEST, OveralProcessBar, 0, SpringLayout.WEST, btnStart);
-		springLayout.putConstraint(SpringLayout.EAST, OveralProcessBar, 0, SpringLayout.EAST, btnStart);
+		springLayout.putConstraint(SpringLayout.NORTH, btnChangeSetting, 22, SpringLayout.SOUTH, OveralProcessBar);
+		springLayout.putConstraint(SpringLayout.NORTH, OveralProcessBar, 6, SpringLayout.SOUTH, CurrentProcessBar);
+		springLayout.putConstraint(SpringLayout.WEST, OveralProcessBar, 35, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, OveralProcessBar, -162, SpringLayout.SOUTH, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, OveralProcessBar, -45, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		frmExcelSmartImage.getContentPane().add(OveralProcessBar);
 		
-		lblExcelPathNum = new JLabel("\u672A\u77E5");
+		lblExcelPathNum = new JLabel("Unknown");
 		springLayout.putConstraint(SpringLayout.NORTH, lblExcelPathNum, 0, SpringLayout.NORTH, lblExcel_1);
 		springLayout.putConstraint(SpringLayout.WEST, lblExcelPathNum, 6, SpringLayout.EAST, lblExcel_1);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblExcelPathNum, 17, SpringLayout.NORTH, lblExcel_1);
 		springLayout.putConstraint(SpringLayout.EAST, lblExcelPathNum, -15, SpringLayout.WEST, label_1);
 		lblExcelPathNum.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblExcelPathNum);
 		
-		lblImagePathNum = new JLabel("\u672A\u77E5");
-		springLayout.putConstraint(SpringLayout.NORTH, lblImagePathNum, -16, SpringLayout.SOUTH, lblExcel_1);
-		springLayout.putConstraint(SpringLayout.WEST, lblImagePathNum, 6, SpringLayout.EAST, label_1);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblImagePathNum, 0, SpringLayout.SOUTH, lblExcel_1);
-		springLayout.putConstraint(SpringLayout.EAST, lblImagePathNum, 0, SpringLayout.EAST, btnStart);
+		lblImagePathNum = new JLabel("Unknown");
+		springLayout.putConstraint(SpringLayout.WEST, lblImagePathNum, 402, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblImagePathNum, -45, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, label_1, -6, SpringLayout.WEST, lblImagePathNum);
+		springLayout.putConstraint(SpringLayout.NORTH, lblImagePathNum, 0, SpringLayout.NORTH, lblExcel_1);
 		lblImagePathNum.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblImagePathNum);
 		
-		lblExcelFileNum = new JLabel("\u672A\u77E5");
-		springLayout.putConstraint(SpringLayout.NORTH, lblExcelFileNum, 24, SpringLayout.SOUTH, lblExcelPathNum);
-		springLayout.putConstraint(SpringLayout.WEST, lblExcelFileNum, 6, SpringLayout.EAST, lblExcel);
-		springLayout.putConstraint(SpringLayout.EAST, lblExcelFileNum, -6, SpringLayout.WEST, label);
+		lblExcelFileNum = new JLabel("Unknown");
+		springLayout.putConstraint(SpringLayout.WEST, lblExcelFileNum, 164, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblExcel, -6, SpringLayout.WEST, lblExcelFileNum);
+		springLayout.putConstraint(SpringLayout.NORTH, lblExcelFileNum, 0, SpringLayout.NORTH, lblExcel);
+		springLayout.putConstraint(SpringLayout.EAST, lblExcelFileNum, -6, SpringLayout.WEST, label_1);
 		lblExcelFileNum.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblExcelFileNum);
 		
-		lblImageFileNum = new JLabel("\u672A\u77E5");
-		springLayout.putConstraint(SpringLayout.NORTH, lblImageFileNum, 22, SpringLayout.SOUTH, lblImagePathNum);
+		lblImageFileNum = new JLabel("Unknown");
+		springLayout.putConstraint(SpringLayout.NORTH, lblImageFileNum, 2, SpringLayout.NORTH, lblExcel);
 		springLayout.putConstraint(SpringLayout.WEST, lblImageFileNum, 6, SpringLayout.EAST, label);
-		springLayout.putConstraint(SpringLayout.EAST, lblImageFileNum, 0, SpringLayout.EAST, btnStart);
+		springLayout.putConstraint(SpringLayout.EAST, lblImageFileNum, -45, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		lblImageFileNum.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblImageFileNum);
 		
-		lblCurrentProcess = new JLabel("\u672A\u77E5");
-		springLayout.putConstraint(SpringLayout.NORTH, lblCurrentProcess, 149, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblCurrentProcess, 164, SpringLayout.WEST, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, lblCurrentProcess, -52, SpringLayout.NORTH, CurrentProcessBar);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblExcelFileNum, -21, SpringLayout.NORTH, lblCurrentProcess);
-		springLayout.putConstraint(SpringLayout.EAST, lblCurrentProcess, 0, SpringLayout.EAST, lblExcelPathNum);
+		lblCurrentProcess = new JLabel("Unknown");
+		springLayout.putConstraint(SpringLayout.NORTH, lblCurrentProcess, 0, SpringLayout.NORTH, label_2);
+		springLayout.putConstraint(SpringLayout.WEST, lblCurrentProcess, 6, SpringLayout.EAST, label_2);
+		springLayout.putConstraint(SpringLayout.EAST, lblCurrentProcess, -15, SpringLayout.WEST, label_3);
 		lblCurrentProcess.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblCurrentProcess);
 		
-		lblOveralProcess = new JLabel("\u672A\u77E5");
-		springLayout.putConstraint(SpringLayout.NORTH, lblOveralProcess, 149, SpringLayout.NORTH, frmExcelSmartImage.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, lblOveralProcess, -52, SpringLayout.NORTH, CurrentProcessBar);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblImageFileNum, -17, SpringLayout.NORTH, lblOveralProcess);
+		lblOveralProcess = new JLabel("Unknown");
+		springLayout.putConstraint(SpringLayout.NORTH, lblOveralProcess, 0, SpringLayout.NORTH, label_2);
 		springLayout.putConstraint(SpringLayout.WEST, lblOveralProcess, 0, SpringLayout.WEST, lblImagePathNum);
-		springLayout.putConstraint(SpringLayout.EAST, lblOveralProcess, 84, SpringLayout.WEST, lblImagePathNum);
+		springLayout.putConstraint(SpringLayout.EAST, lblOveralProcess, -61, SpringLayout.EAST, frmExcelSmartImage.getContentPane());
 		lblOveralProcess.setFont(new Font("SimSun", Font.BOLD, 14));
 		frmExcelSmartImage.getContentPane().add(lblOveralProcess);
 		post_initialize_process();
